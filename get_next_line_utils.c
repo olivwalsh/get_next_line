@@ -6,58 +6,86 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/12 12:53:42 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:49:06 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *read_file(int fd)
+size_t	ft_strlen(const char *s)
 {
-    int		ret;
-    static char	buf[BUFFER_SIZE];
-	int		c;
-	char	*line;
-	char	*nl;
+	size_t	i;
+
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (c > 256)
+		c %= 256;
+	while (s && s[i])
+	{
+		if (s[i] == c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (c == 0)
+		return ((char *)&s[i]);
+	return (NULL);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
 	int		i;
+	int		j;
+	char	*str;
 
-    if (fd == -1)
-        return (NULL);
-	line = NULL;
-	nl = NULL;
-	nl	=	ft_strchr(buf, '\n');
-	while (!nl)
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	str = malloc(sizeof(char) * (i + j + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1 && s1[i])
 	{
-		//	join buffer with line
-		//	read new buffer
-		nl	=	ft_strchr(buf, '\n');
+		str[i] = s1[i];
+		i++;
 	}
-	// extend line with buf until \n (included)
-	// move post \n buf data at begining of buf
-	// return line.
-	
+	j = 0;
+	while (s2 && s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = 0;
+	return (str);
+}
 
-	ret = read(fd, buf, BUFFER_SIZE);
-    if (ret == -1)
-        return (NULL);
-	line = 0;
-	while (buf && *buf)
+char	*ft_strndup(const char *s, size_t n)
+{
+	char	*dup;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i])
+		i++;
+	dup = malloc(sizeof(char) * (i + 1));
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s[i] && i < n)
 	{
-		if (line == get_line)
-			break;
-		if (*buf != '\n')
-		{
-			i++;
-		}
-		else
-		{
-			buf += i;
-			line++;
-		}
-		buf++;
-		
+		dup[i] = s[i];
+		i++;
 	}
-	printf("read %d bytes\n------------\n", ret);
-    buf[ret] = '\0';
-    return (buf);
+	dup[i] = '\0';
+	return (dup);
 }

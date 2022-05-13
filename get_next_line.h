@@ -6,14 +6,14 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:44 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/12 10:01:45 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:36:32 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#define BUFFER_SIZE 2048
+#define BUFFER_SIZE 4
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,9 +21,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int get_line = 1;
-
 char    *get_next_line(int fd);
-char    *read_file(int fd);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strndup(const char *s, size_t n);
 
 #endif
