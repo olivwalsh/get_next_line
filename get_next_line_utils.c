@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/13 17:49:06 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:17:08 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	if (c > 256)
 		c %= 256;
-	while (s && s[i])
+	while (s && *s)
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i++;
+		if (*s == c)
+			return ((char *)s);
+		s++;
 	}
-	if (c == 0)
-		return ((char *)&s[i]);
 	return (NULL);
 }
 
@@ -71,6 +69,7 @@ char	*ft_strndup(const char *s, size_t n)
 {
 	char	*dup;
 	size_t	i;
+
 
 	if (!s)
 		return (NULL);
