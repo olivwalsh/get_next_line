@@ -6,14 +6,12 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:44 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/15 16:44:51 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:56:12 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
-# define BUFFER_SIZE 4096
 
 # include <stdio.h>
 # include <stdlib.h>

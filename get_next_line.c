@@ -6,49 +6,54 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:42 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/15 16:42:58 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/15 17:30:21 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-    int			ret;
+	int			ret;
 	char		*line;
-	char 		*tmp;
-	char	    buf[BUFFER_SIZE + 1];
-	static char *stash;
-	
+	char		*tmp;
+	char		buf[BUFFER_SIZE + 1];
+	static char	*stash;
+
 	ret = read(fd, buf, BUFFER_SIZE);
-    if (ret == -1)
-        return (NULL);
+	if (ret < 0 || ret == EOF || !ret)
+		return (NULL);
 	buf[ret] = '\0';
-    stash = ft_strjoin(stash, buf);
+	stash = ft_strjoin(stash, buf);
 	while (ret > 0 && !ft_strchr(buf, '\n'))
 	{
-        ret = read(fd, buf, BUFFER_SIZE);
+		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
 		tmp = stash;
 		stash = ft_strjoin(stash, buf);
-        free(tmp);
+		free(tmp);
 	}
-    line = ft_strndup(stash);
-    while (*stash != '\n')
-        stash++;
-    stash++;
-    printf("returned line: %s\n", line);
+	// printf("Segfaults before strndup?\n");
+	line = ft_strndup(stash);
+	// printf("Segfaults after strndup?\n");
+	while (stash && *stash != '\n' && *stash != 0)
+		stash++;
+	stash++;
+	// printf("Segfaults after moving stash?\n");
 	return (line);
 }
 
-int main()
+int main(void)
 {
     int fd;
-    
-	fd = open("file", O_RDONLY);
-	get_next_line(fd);
-	get_next_line(fd);
-	get_next_line(fd);
-    get_next_line(fd);
+
+	fd = open("file", O_RDONLY | O_CREAT);
+	// fd = stdin;
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
     return (0);
 }
