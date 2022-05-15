@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/14 17:17:08 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:45:06 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s)
 {
 	char	*dup;
-	size_t	i;
-
+	int	    i;
+    int     n;
 
 	if (!s)
 		return (NULL);
-	i = 0;
-	while (s[i])
-		i++;
+    n = 0;
+    while (s[n] != '\n')
+        n++;
+    n++;
+	i = ft_strlen(s);
 	dup = malloc(sizeof(char) * (i + 1));
 	if (!dup)
 		return (NULL);
