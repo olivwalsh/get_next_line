@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/15 17:09:43 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/16 09:17:44 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strndup(const char *s)
+char	*ft_strdup_untilnl(const char *s)
 {
 	char	*dup;
 	int		i;
-	// int		n;
 
 	if (!s)
 		return (NULL);
-	// n = 0;
-	// // while (s[n] != '\n')
-	// // 	n++;
-	// // n++;
-	// while (s[n])
-	// {
-	// 	if (s[n] == '\n')
-	// 	{
-	// 		n++;
-	// 		break;
-	// 	}
-	// 	n++;
-	// }
-	// printf("duplicates until %d bytes\n", n);
 	i = ft_strlen(s);
 	dup = malloc(sizeof(char) * (i + 1));
 	if (!dup)

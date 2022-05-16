@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:44 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/15 16:56:12 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/16 09:12:10 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strndup(const char *s);
+char	*ft_strdup_untilnl(const char *s);
 
 #endif
