@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/16 09:17:44 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/16 14:45:58 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-
-	i = 0;
 	if (c > 256)
 		c %= 256;
 	while (s && *s)
@@ -36,6 +33,23 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	return (NULL);
+}
+
+void	fill_line(char **line, char *buf)
+{
+	if (!(*line))
+	{
+		
+	}
+	else if ((*line)[])
+	{
+		
+	}
+}
+
+char	*clean_line(char **line, char *buf)
+{
+	
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -77,14 +91,17 @@ char	*ft_strdup_untilnl(const char *s)
 	if (!dup)
 		return (NULL);
 	i = 0;
-	while (s[i] && s[i] != '\n')
+	while (s && s[i])
 	{
+		if (s[i] == '\n')
+		{
+			dup[i] = s[i];
+			i++;
+			break;
+		}
 		dup[i] = s[i];
 		i++;
 	}
-	if (s && s[i] == '\n')
-		dup[i] = s[i];
-	i++;
 	dup[i] = '\0';
 	return (dup);
 }

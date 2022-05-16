@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:42 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/16 09:17:38 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/16 14:40:24 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,31 @@
 
 char	*get_next_line(int fd)
 {
-	int			ret;
-	char		*line;
-	char		*tmp;
-	char		buf[BUFFER_SIZE + 1];
-	static char	*stash;
+	int				ret;
+	char			*line;
+	static char		buf[BUFFER_SIZE + 1] = '\0';
 
-	ret = read(fd, buf, BUFFER_SIZE);
-	if ((ret < 0 || ret == EOF || !ret) && (stash && !*stash))
+	if ((fd < 0 || fd > 1024) || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf[ret] = '\0';
-	stash = ft_strjoin(stash, buf);
-	while (ret > 0 && !ft_strchr(buf, '\n'))
+	ret = 1;
+	line = NULL;
+	fill_line(&line, buf);
+	while (ret && !ft_strchr(buf, '\n'))
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret < 0)
+		{
+			free(line);
+			return (NULL);
+		}
 		buf[ret] = '\0';
-		tmp = stash;
-		stash = ft_strjoin(stash, buf);
-		free(tmp);
+		if (ret)
+			fill_line(&line, buf);
 	}
-	line = ft_strdup_untilnl(stash);
-	while (stash && *stash != '\n' && *stash != 0)
-		stash++;
-	stash++;
-	return (line);
+	if (ret)
+		return (clean_line(&line, buf));
+	else
+		return (NULL);
 }
 
 int main(void)
@@ -52,7 +53,7 @@ int main(void)
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
-		// free(line);
+		free(line);
 		i++;
 	}
     return (0);
