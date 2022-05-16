@@ -6,13 +6,13 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/16 14:45:58 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/16 17:46:44 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -22,37 +22,21 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr(char *s, int c)
 {
-	if (c > 256)
-		c %= 256;
-	while (s && *s)
+	int	i;
+
+	i = 0;
+	while (s && s[i])
 	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
+		if (s[i] == c)
+			return (i);
+		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
-void	fill_line(char **line, char *buf)
-{
-	if (!(*line))
-	{
-		
-	}
-	else if ((*line)[])
-	{
-		
-	}
-}
-
-char	*clean_line(char **line, char *buf)
-{
-	
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -79,7 +63,46 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strdup_untilnl(const char *s)
+char	*clean_line(char **line, char *buf)
+{
+	int		i;
+	int		j;
+	int		nl;
+	char	*clean;
+
+	i = 0;
+	while ((*line)[i])
+	{
+		if ((*line)[i] == '\n')
+			break;
+		i++;
+	}
+	clean = malloc(sizeof(char) * (i + 2));
+	if (!clean)
+		return (NULL);
+	j = 0;
+	while (j < (i + 1))
+	{
+		clean[j] = (*line)[j];
+		j++;
+	}
+	clean[j] = '\0';
+	free(*line);
+	nl = ft_strchr(buf, '\n');
+	j = 0;
+	if (nl)
+	{
+		while (buf[nl + 1 + j])
+		{
+			buf[j] = buf[nl + 1 + j];
+			j++;
+		}
+	}
+	buf[j] = 0;
+	return (clean);
+}
+
+char	*ft_strdup_untilnl(char *s)
 {
 	char	*dup;
 	int		i;
