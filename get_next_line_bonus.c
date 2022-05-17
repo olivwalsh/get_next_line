@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:42 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/17 16:20:00 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:43:12 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*get_next_line(int fd)
 {
-	static char		buf[1024][BUFFER_SIZE + 1];
+	static char		buf[FOPEN_MAX][BUFFER_SIZE + 1];
 	int				ret;
 	char			*line;
 
-	if ((fd < 0 || fd > 1024) || BUFFER_SIZE <= 0)
+	if ((fd < 0 || fd >= FOPEN_MAX) || BUFFER_SIZE <= 0)
 		return (NULL);
 	ret = 1;
 	line = NULL;

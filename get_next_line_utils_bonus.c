@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/17 16:14:18 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:55:13 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if ((!s1 && !s2) || !s2[0])
 		return (NULL);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	str = malloc(sizeof(char) * (i + j + 1));
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -71,26 +69,22 @@ char	*ft_strjoin(char *s1, char *s2)
 
 void	clean_buf(char *buf)
 {
-    int    i;
-    int    j;
-    int    n;
+	int		i;
+	int		j;
+	int		n;
 
-    i = 0;
-    while (buf && buf[i] && buf[i] != '\n')
-        i++;
-    i++;
-    n = ft_strlen(buf) - i;
-    if (n < 0)
-    {	
-        buf[0] = '\0';
-        return ;
-    }
-	j = 0;
-    while (j < n)
-	{
-        buf[j] = buf[i];
-		j++;
+	i = 0;
+	while (buf && buf[i] && buf[i] != '\n')
 		i++;
+	i++;
+	n = ft_strlen(buf) - i;
+	if (n < 0)
+	{
+		buf[0] = '\0';
+		return ;
 	}
-    buf[n] = '\0';
+	j = 0;
+	while (j < n)
+		buf[j++] = buf[i++];
+	buf[n] = '\0';
 }

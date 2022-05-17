@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:42 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/17 11:51:53 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/17 16:56:22 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,3 @@ char	*get_next_line(int fd)
 	clean_buf(buf);
 	return (line);
 }
-
-// int main(void)
-// {
-//     int		fd;
-// 	int		i;
-// 	char	*line;
-
-// 	fd = open("file", O_RDONLY);
-// 	i = 0;
-// 	while (i < 5)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("LINE %d:\n%s", i + 1, line);
-// 		free(line);
-// 		i++;
-// 	}
-//     return (0);
-// }
