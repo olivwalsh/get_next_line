@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:44 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/16 16:46:02 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/17 10:42:57 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-int		ft_strchr(char *s, int c);;
-size_t	ft_strlen(char *s);
+int		has_nl(char *s);
+int		ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup_untilnl(char *s);
-void	fill_line(char **line, char *buf);
-char	*clean_line(char **line, char *buf);
+void	clean_buf(char *buf);
 
 #endif

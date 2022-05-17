@@ -6,15 +6,15 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 08:01:37 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/16 17:46:44 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/17 11:51:23 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s && s[i])
@@ -22,15 +22,18 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-int	ft_strchr(char *s, int c)
+int	has_nl(char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s && s[i])
 	{
-		if (s[i] == c)
-			return (i);
+		if (s[i] == '\n')
+		{
+			s[i + 1] = '\0';
+			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -42,6 +45,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 	char	*str;
 
+	if ((!s1 && !s2) || !s2[0])
+		return (NULL);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
 	str = malloc(sizeof(char) * (i + j + 1));
@@ -60,71 +65,32 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	str[i + j] = 0;
+	free(s1);
 	return (str);
 }
 
-char	*clean_line(char **line, char *buf)
+void	clean_buf(char *buf)
 {
-	int		i;
-	int		j;
-	int		nl;
-	char	*clean;
+    int    i;
+    int    j;
+    int    n;
 
-	i = 0;
-	while ((*line)[i])
-	{
-		if ((*line)[i] == '\n')
-			break;
-		i++;
-	}
-	clean = malloc(sizeof(char) * (i + 2));
-	if (!clean)
-		return (NULL);
+    i = 0;
+    while (buf && buf[i] && buf[i] != '\n')
+        i++;
+    i++;
+    n = ft_strlen(buf) - i;
+    if (n < 0)
+    {	
+        buf[0] = '\0';
+        return ;
+    }
 	j = 0;
-	while (j < (i + 1))
+    while (j < n)
 	{
-		clean[j] = (*line)[j];
+        buf[j] = buf[i];
 		j++;
-	}
-	clean[j] = '\0';
-	free(*line);
-	nl = ft_strchr(buf, '\n');
-	j = 0;
-	if (nl)
-	{
-		while (buf[nl + 1 + j])
-		{
-			buf[j] = buf[nl + 1 + j];
-			j++;
-		}
-	}
-	buf[j] = 0;
-	return (clean);
-}
-
-char	*ft_strdup_untilnl(char *s)
-{
-	char	*dup;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	i = ft_strlen(s);
-	dup = malloc(sizeof(char) * (i + 1));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (s && s[i])
-	{
-		if (s[i] == '\n')
-		{
-			dup[i] = s[i];
-			i++;
-			break;
-		}
-		dup[i] = s[i];
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
+    buf[n] = '\0';
 }
